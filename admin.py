@@ -1,5 +1,6 @@
 import pandas as pd
 from tkinter import messagebox
+from utils import record_grade_update
 
 def add_user(username, name, password, role, email, phone):
     """Add new user with pandas"""
@@ -28,11 +29,14 @@ def add_user(username, name, password, role, email, phone):
 
         
 def update_grades(username, new_grades):
-    """Update student grades using pandas"""
+    """Update student grades and record history"""
     try:
         grades = pd.read_csv('data/grades.txt')
         grades.loc[grades['id'] == username, ['math','science','english','history','art']] = new_grades
         grades.to_csv('data/grades.txt', index=False)
+        
+        # Record in history
+        record_grade_update(username, new_grades)
         return True
     except Exception as e:
         messagebox.showerror("Error", str(e))
