@@ -1,0 +1,3 @@
+id,name,role,email,phone
+admin1,John Admin,admin,admin@school.edu,1234567890
+stu100,Alice Student,student,alice@school.edu,9876543210
