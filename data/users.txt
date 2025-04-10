@@ -1,3 +1,9 @@
 id,name,role,email,phone
 admin1,John Admin,admin,admin@school.edu,1234567890
 stu100,Alice Student,student,alice@school.edu,9876543210
+stu101,Bob Student,student,bob@school.edu,9876543211
+stu102,Charlie Student,student,charlie@school.edu,9876543212
+stu103,David Student,student,david@school.edu,9876543213
+stu104,Eve Student,student,eve@school.edu,9876543214
+stu105,Frank Student,student,frank@school.edu,9876543215
+stu106,Grace Student,student,grace@school.edu,9876543216
