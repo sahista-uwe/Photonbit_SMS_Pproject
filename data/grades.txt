@@ -1,5 +1,4 @@
 id,math,science,english,history,art
-admin1,90,85,88,91,94
 stu100,80,75,78,82,79
 stu101,88,87,85,90,84
 stu102,72,68,70,74,77

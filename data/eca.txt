@@ -1,5 +1,4 @@
 id,activity1,activity2,activity3
-admin1,Football,Music,Art
 stu100,Debate,Chess,Football
 stu101,Music,Drama,Basketball
 stu102,Art,Football,Music
