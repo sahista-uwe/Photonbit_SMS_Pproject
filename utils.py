@@ -2,7 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-from tkinter import messagebox
+from CTkMessagebox import CTkMessagebox
 from datetime import datetime
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -105,7 +105,8 @@ def plot_grade_trends(username, window=None):
     except Exception as e:
         print(f"Error plotting trends for {username}: {str(e)}")
         if window:
-            messagebox.showinfo("Info", f"No grade data available for {username}")
+          
+            CTkMessagebox(title="Info", message=f"No grade data available for {username}")
         return None
 
 def plot_subject_averages(username=None):
@@ -139,7 +140,9 @@ def plot_subject_averages(username=None):
         return fig
         
     except Exception as e:
-        messagebox.showerror("Error", f"Could not load grades: {str(e)}")
+      
+        CTkMessagebox(title="Error", message=f"Could not load grades: {str(e)}", icon= 'cancel')
+        
         return None
 
 def embed_plot(window, fig):

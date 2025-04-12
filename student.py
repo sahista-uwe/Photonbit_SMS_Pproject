@@ -1,28 +1,32 @@
 #this is student.py
 import pandas as pd
 import tkinter as tk
-from tkinter import messagebox
+from CTkMessagebox import CTkMessagebox
 from utils import validate_email, validate_phone
 
 
 def update_profile(username, new_email, new_phone):
     try:
         if not validate_email(new_email):
-            messagebox.showerror("Error", "Invalid email format")
+           
+            CTkMessagebox(title="Error", message="Invalid email format", icon="cancel")
             return False
         
         if not validate_phone(new_phone):
-            messagebox.showerror("Error", "Invalid phone number")
+            
+            CTkMessagebox(title="Error", message="Invalid phone number", icon="cancel")
             return False
         
         df = pd.read_csv('data/users.txt')
         df.loc[df['username'] == username, 'email'] = new_email
         df.loc[df['username'] == username, 'phone'] = new_phone
         df.to_csv('data/users.txt', index=False)
-        messagebox.showinfo("Success", "Profile updated successfully")
+       
+        CTkMessagebox(title="Success", message="Profile updated successfully")
         return True
     except Exception as e:
-        messagebox.showerror("Error", f"Failed to update profile: {str(e)}")
+        
+        CTkMessagebox(title="Error", message=f"Failed to update profile: {str(e)}", icon="cancel")
         return False
 
 def check_performance(username):
@@ -31,7 +35,8 @@ def check_performance(username):
         student_grades = grades_df[grades_df['username'] == username]
         
         if student_grades.empty:
-            messagebox.showinfo("Info", "No grade records found")
+            
+            CTkMessagebox(title="Info", message="No grade records found", icon="cancel")
             return None
         
         subjects = [col for col in student_grades.columns if col != 'username']
@@ -46,6 +51,7 @@ def check_performance(username):
             'total_students': len(grades_df)
         }
     except Exception as e:
-        messagebox.showerror("Error", f"Failed to check performance: {str(e)}")
+       
+        CTkMessagebox(title="Error", message=f"Failed to check performance: {str(e)}", icon="cancel")
         return None
 
