@@ -364,6 +364,7 @@ class DashboardWindow:
             "Update Grades": self.show_update_grades,
             "Modify ECA": self.show_modify_eca,
             "ECA Insights": self.show_eca_insights,
+            "ECA & Grade Correlation": self.show_eca_impact,
             "Delete User": self.show_delete_user
         }
         
@@ -635,6 +636,14 @@ class DashboardWindow:
         from utils import plot_eca_participation
         fig = plot_eca_participation()
         embed_plot(self.window, fig)
+
+    def show_eca_impact(self):
+        from utils import analyze_eca_impact
+        fig = analyze_eca_impact()
+        if fig:
+            embed_plot(self.window, fig)
+        else:
+            CTkMessagebox(title="Info", message= "Not enough data for ECA analysis",icon="check")
 
 if __name__ == "__main__":
     from utils import initialize_data_files

@@ -195,3 +195,38 @@ def validate_email(email: str) -> bool:
 def validate_phone(phone: str) -> bool:
     return re.match(r'^\+?[1-9]\d{1,14}$', phone) is not None  # Supports international numbers
 
+def analyze_eca_impact():
+    try:
+        # Load and merge data
+        grades = pd.read_csv('data/grades.txt')
+        eca = pd.read_csv('data/eca.txt')
+        merged = pd.merge(grades, eca, on='username')
+        
+        # Calculate average grade per student
+        merged['average'] = merged[['math','science','english','history','art']].mean(axis=1)
+        
+        # Melt ECA activities into one column
+        eca_melted = merged.melt(
+            id_vars=['username', 'average'],
+            value_vars=['activity1', 'activity2', 'activity3'],
+            value_name='activity'
+        )
+        
+        # Filter out 'None' activities
+        eca_melted = eca_melted[eca_melted['activity'] != 'None']
+        
+        # Group by activity and calculate stats
+        eca_stats = eca_melted.groupby('activity')['average'].agg(['mean', 'count'])
+        eca_stats = eca_stats[eca_stats['count'] >= 2]  # Only show activities with ≥2 participants
+        
+        # Plot
+        fig, ax = plt.subplots(figsize=(10, 5))
+        eca_stats['mean'].sort_values().plot.barh(ax=ax, color='teal')
+        ax.set_title('Average Grade by ECA Participation')
+        ax.set_xlabel('Average Grade Score')
+        plt.tight_layout()
+        return fig
+        
+    except Exception as e:
+        print(f"ECA Impact Error: {str(e)}")
+        return None

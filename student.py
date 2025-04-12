@@ -54,4 +54,3 @@ def check_performance(username):
        
         CTkMessagebox(title="Error", message=f"Failed to check performance: {str(e)}", icon="cancel")
         return None
-
