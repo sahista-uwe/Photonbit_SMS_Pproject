@@ -635,7 +635,13 @@ class DashboardWindow:
         from utils import plot_eca_participation
         fig = plot_eca_participation()
         embed_plot(self.window, fig)
-
+    def show_eca_impact(self):
+        from utils import analyze_eca_impact
+        fig = analyze_eca_impact()
+        if fig:
+            embed_plot(self.window, fig)
+        else:
+            messagebox.showinfo("Info", "Not enough data for ECA analysis")
 if __name__ == "__main__":
     from utils import initialize_data_files
     import pandas as pd
