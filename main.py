@@ -30,19 +30,18 @@ class LoginWindow:
 
     def check_login(self):
         username = self.username.get()
-        try:
-            if authenticate(username, self.password.get()):
-                role = get_user_role(username)
-                if role not in ['admin', 'student']:
-                    raise ValueError("Invalid role detected")
+        
+        if authenticate(username, self.password.get()):
+            role = get_user_role(username)
+            if role not in ['admin', 'student']:
+                raise ValueError("Invalid role detected")
                 
-                self.root.destroy()
-                user = Admin(username, role) if role == 'admin' else Student(username, role)
-                DashboardWindow(user)
-            else:
-                tk.messagebox.showerror("Error", "Invalid credentials")
-        except Exception as e:
-            tk.messagebox.showerror("System Error", f"Login failed: {str(e)}")
+            self.root.destroy()
+            user = Admin(username, role) if role == 'admin' else Student(username, role)
+            DashboardWindow(user)
+        else:
+            tk.messagebox.showerror("Error", "Invalid credentials")
+        
 
 
     
@@ -102,19 +101,25 @@ class DashboardWindow:
                 embed_plot(self.window, fig)
         except Exception as e:
             messagebox.showinfo("Info", f"Grade trends unavailable: {str(e)}")
-
+    #ECA section
         eca_frame = ttk.LabelFrame(self.window, text="My ECAs")
         eca_frame.pack(pady=10, fill='x')
 
         try:
-            eca = pd.read_csv('data/eca.txt')
-            student_eca = eca[eca['username'] == self.user.username].iloc[0]
-            ttk.Label(eca_frame, text=f"Activity 1: {student_eca['activity1']}").pack(anchor='w')
-            ttk.Label(eca_frame, text=f"Activity 2: {student_eca['activity2']}").pack(anchor='w')
-            ttk.Button(eca_frame, text="Update ECAs", 
-                  command=self.show_update_eca).pack()
-        except:
-            messagebox.showinfo("Info", "No ECA records found")
+            if os.path.exists('data/eca.txt'):
+                eca = pd.read_csv('data/eca.txt')
+                student_eca = eca[eca['username'] == self.user.username].iloc[0]
+                if not student_eca.empty:
+                    ttk.Label(eca_frame, text=f"Activity 1: {student_eca['activity1']}").pack(anchor='w')
+                    ttk.Label(eca_frame, text=f"Activity 2: {student_eca['activity2']}").pack(anchor='w')
+                    ttk.Label(eca_frame, text=f"Activity 3: {student_eca['activity3']}").pack(anchor='w')
+                    ttk.Button(eca_frame, text="Update ECAs", command=self.show_update_eca).pack()
+                else:
+                    ttk.Label(eca_frame, text="No ECA records found").pack()
+            else:
+                ttk.Label(eca_frame, text="ECA database not available").pack()
+        except Exception as e:
+            ttk.Label(eca_frame, tetxt='Error loading ECA records').pack()
 
 
 
@@ -142,7 +147,7 @@ class DashboardWindow:
             if update_profile(self.user.username, email_entry.get(), phone_entry.get()):
                 update_window.destroy()
                 self.window.destroy()  
-                DashboardWindow("self.user") 
+                DashboardWindow(self.user) 
     
         ttk.Button(update_window, text="Update", command=submit).grid(row=2, columnspan=2)
 

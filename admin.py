@@ -142,15 +142,17 @@ def delete_user(target_username):
     try:
         # Delete from all files including eca.txt
         for file in ['users.txt', 'passwords.txt', 'grades.txt', 'eca.txt']:
-            df = pd.read_csv(f'data/{file}')
-            df = df[df['username'] != target_username]
-            df.to_csv(f'data/{file}', index=False)
+            file_path = f'data/{file}'
+            if os.path.exists(file_path):
+                df = pd.read_csv(file_path)
+                df = df[df['username'] != target_username]
+                df.to_csv(file_path, index=False)
         
-        # Delete grade history file
+        # Delete grade history
         history_file = f'data/grade_history/{target_username}.csv'
         if os.path.exists(history_file):
             os.remove(history_file)
-        
-        return True, f"User {target_username} deleted"
+            
+        return True, f"User {target_username} deleted successfully"
     except Exception as e:
-        return False, f"Delete failed: {str(e)}"
+        return False, f"Deletion failed: {str(e)}"

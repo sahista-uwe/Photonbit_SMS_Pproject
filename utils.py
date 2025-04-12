@@ -16,6 +16,7 @@ def initialize_data_files():
     }
     os.makedirs('data', exist_ok=True)
     os.makedirs('data/grade_history', exist_ok=True)
+
     for file_path, columns in data_files.items():
         if not os.path.exists(file_path):
             pd.DataFrame(columns=columns).to_csv(file_path, index=False)
@@ -27,10 +28,15 @@ def initialize_data_files():
     # Find missing users in ECA and add blank entries
     missing_users = users[~users['username'].isin(eca['username'])]
     if not missing_users.empty:
-        default_activities = {'activity1': 'None', 'activity2': 'None', 'activity3': 'None'}
-        for user in missing_users['username']:
-            eca = pd.concat([eca, pd.DataFrame({'username': [user], **default_activities})], ignore_index=True)
+        new_entries = pd.DataFrame({
+            'username' : missing_users['username'],
+            'activity1':'None',
+            'activity2':'None',
+            'activity3':'None',
+        })
+        eca = pd.concat([eca, new_entries], ignore_index=True)
         eca.to_csv('data/eca.txt', index=False)
+     
 
 def record_grade_update(username, grades):
     """Record grade changes in history file"""
@@ -185,3 +191,4 @@ def validate_email(email: str) -> bool:
 
 def validate_phone(phone: str) -> bool:
     return re.match(r'^\+?[1-9]\d{1,14}$', phone) is not None  # Supports international numbers
+

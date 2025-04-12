@@ -4,3 +4,4 @@ chelsey,Football,Basetball,Debate
 swapnil,Football,Basketball,Music
 sandy,Basketball,Drama,Music
 sahima,Music,Basketball,Debate
+luna,Robotics,Chess,Music
