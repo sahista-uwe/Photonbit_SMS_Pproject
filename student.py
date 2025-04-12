@@ -1,7 +1,8 @@
+#this is student.py
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox
-from utils import validate_email, validate_phone, plot_grade_trends
+from utils import validate_email, validate_phone
 
 
 def update_profile(username, new_email, new_phone):
@@ -15,8 +16,8 @@ def update_profile(username, new_email, new_phone):
             return False
         
         df = pd.read_csv('data/users.txt')
-        df.loc[df['id'] == username, 'email'] = new_email
-        df.loc[df['id'] == username, 'phone'] = new_phone
+        df.loc[df['username'] == username, 'email'] = new_email
+        df.loc[df['username'] == username, 'phone'] = new_phone
         df.to_csv('data/users.txt', index=False)
         messagebox.showinfo("Success", "Profile updated successfully")
         return True
@@ -27,13 +28,13 @@ def update_profile(username, new_email, new_phone):
 def check_performance(username):
     try:
         grades_df = pd.read_csv('data/grades.txt')
-        student_grades = grades_df[grades_df['id'] == username]
+        student_grades = grades_df[grades_df['username'] == username]
         
         if student_grades.empty:
             messagebox.showinfo("Info", "No grade records found")
             return None
         
-        subjects = [col for col in student_grades.columns if col != 'id']
+        subjects = [col for col in student_grades.columns if col != 'username']
         average = student_grades[subjects].mean(axis=1).values[0]
         
         averages = grades_df[subjects].mean(axis=1)

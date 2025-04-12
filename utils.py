@@ -1,3 +1,4 @@
+#this is utils.py
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -8,16 +9,28 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 def initialize_data_files():
     """Create data files with headers if they don't exist."""
     data_files = {
-        'data/users.txt': ['id', 'name', 'role', 'email', 'phone'],
+        'data/users.txt': ['username', 'name', 'role', 'email', 'phone'],
         'data/passwords.txt': ['username', 'password'],
-        'data/grades.txt': ['id', 'math', 'science', 'english', 'history', 'art'],
-        'data/eca.txt': ['id', 'activity1', 'activity2', 'activity3']
+        'data/grades.txt': ['username', 'math', 'science', 'english', 'history', 'art'],
+        'data/eca.txt': ['username', 'activity1', 'activity2', 'activity3']
     }
     os.makedirs('data', exist_ok=True)
     os.makedirs('data/grade_history', exist_ok=True)
     for file_path, columns in data_files.items():
         if not os.path.exists(file_path):
             pd.DataFrame(columns=columns).to_csv(file_path, index=False)
+    
+     # Sync ECA records with users.txt (run this after adding a user)
+    users = pd.read_csv('data/users.txt')
+    eca = pd.read_csv('data/eca.txt')
+    
+    # Find missing users in ECA and add blank entries
+    missing_users = users[~users['username'].isin(eca['username'])]
+    if not missing_users.empty:
+        default_activities = {'activity1': 'None', 'activity2': 'None', 'activity3': 'None'}
+        for user in missing_users['username']:
+            eca = pd.concat([eca, pd.DataFrame({'username': [user], **default_activities})], ignore_index=True)
+        eca.to_csv('data/eca.txt', index=False)
 
 def record_grade_update(username, grades):
     """Record grade changes in history file"""
@@ -95,11 +108,11 @@ def plot_subject_averages(username=None):
         grades = pd.read_csv('data/grades.txt')
         
         if username:  # Student view
-            student_data = grades[grades['id'] == username]
+            student_data = grades[grades['username'] == username]
             if student_data.empty:
                 raise ValueError(f"No grades found for {username}")
             
-            # Extract just the grades (exclude 'id' column)
+            # Extract just the grades (exclude 'username' column)
             grades_data = student_data.iloc[0][['math','science','english','history','art']]
             
             fig, ax = plt.subplots(figsize=(6,2.5))
@@ -154,20 +167,21 @@ def check_performance(username):
             alerts.append(f"{subj.capitalize()} below 50%")
     
     return alerts
-# utils.py
+
 def update_eca(username, activities):
     """Update extracurricular activities"""
     eca = pd.read_csv('data/eca.txt')
-    eca.loc[eca['id'] == username, ['activity1','activity2','activity3']] = activities
+    eca.loc[eca['username'] == username, ['activity1','activity2','activity3']] = activities
     eca.to_csv('data/eca.txt', index=False)
 
 def validate_grade(grade: int) -> bool:
     return 0 <= grade <= 100
 
+import re
+
 def validate_email(email: str) -> bool:
-    return '@' in email and '.' in email.split('@')[-1]
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return re.match(pattern, email) is not None
 
 def validate_phone(phone: str) -> bool:
-    return phone.isdigit() and len(phone) == 10
-
-
+    return re.match(r'^\+?[1-9]\d{1,14}$', phone) is not None  # Supports international numbers
