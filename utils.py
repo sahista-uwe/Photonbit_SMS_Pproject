@@ -195,76 +195,9 @@ def initialize_data_files():
         eca.to_csv('data/eca.txt', index=False)
      
 
-def record_grade_update(username, grades):
-    """Record grade changes in history file"""
-    history_file = f'data/grade_history/{username}.csv'
-    today = datetime.now().strftime('%Y-%m-%d')
-    
-    new_record = {'date': today}
-    new_record.update(grades)
-    
-    # Create file if it doesn't exist
-    if not os.path.exists(history_file):
-        pd.DataFrame(columns=new_record.keys()).to_csv(history_file, index=False)
-    
-    # Append new record
-    history_df = pd.read_csv(history_file)
-    history_df = pd.concat([history_df, pd.DataFrame([new_record])])
-    history_df.to_csv(history_file, index=False)
 
-def plot_grade_trends(username, window=None):
-    """Plots grade trends for ONE student (given by username)"""
-    history_file = f'data/grade_history/{username}.csv'  # Only this student's file
-    
-    try:
-        # Check if file exists
-        if not os.path.exists(history_file):
-            raise FileNotFoundError(f"No grade history found for {username}")
-        
-        # Read ONLY this student's data
-        df = pd.read_csv(history_file)
-        
-        # Check if data is available
-        if len(df) < 1:
-            raise ValueError(f"No records found for {username}")
-        
-        # Convert date and sort
-        df['date'] = pd.to_datetime(df['date'])
-        df.sort_values('date', inplace=True)
-        
-        # Create the plot
-        fig, ax = plt.subplots(figsize=(6, 2.5))
-        plt.title(f"Grade Trends for {username}")
-        
-        # Subjects to plot
-        subjects = ['math', 'science', 'english', 'history', 'art']
-        
-        # Plot each subject as a line (or bars if preferred)
-        for subject in subjects:
-            ax.plot(df['date'], df[subject], marker='o', label=subject)
-        
-        # Customize plot
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Score")
-        ax.legend()
-        ax.grid(True)
-        
-        plt.tight_layout()
-        
-        # Display in Tkinter if needed
-        if window:
-            canvas = FigureCanvasTkAgg(fig, master=window)
-            canvas.draw()
-            canvas.get_tk_widget().pack(fill='both', expand=True)
-            return canvas
-        return fig
-        
-    except Exception as e:
-        print(f"Error plotting trends for {username}: {str(e)}")
-        if window:
-          
-            CTkMessagebox(title="Info", message=f"No grade data available for {username}")
-        return None
+
+
 
 def plot_subject_averages(username=None):
     """Show subject grades for one student or class averages"""
@@ -352,41 +285,7 @@ def validate_email(email: str) -> bool:
 def validate_phone(phone: str) -> bool:
     return re.match(r'^\+?[1-9]\d{1,14}$', phone) is not None  # Supports international numbers
 
-def analyze_eca_impact():
-    try:
-        # Load and merge data
-        grades = pd.read_csv('data/grades.txt')
-        eca = pd.read_csv('data/eca.txt')
-        merged = pd.merge(grades, eca, on='username')
-        
-        # Calculate average grade per student
-        merged['average'] = merged[['math','science','english','history','art']].mean(axis=1)
-        
-        # Melt ECA activities into one column
-        eca_melted = merged.melt(
-            id_vars=['username', 'average'],
-            value_vars=['activity1', 'activity2', 'activity3'],
-            value_name='activity'
-        )
-        
-        # Filter out 'None' activities
-        eca_melted = eca_melted[eca_melted['activity'] != 'None']
-        
-        # Group by activity and calculate stats
-        eca_stats = eca_melted.groupby('activity')['average'].agg(['mean', 'count'])
-        eca_stats = eca_stats[eca_stats['count'] >= 2]  # Only show activities with ≥2 participants
-        
-        # Plot
-        fig, ax = plt.subplots(figsize=(10, 5))
-        eca_stats['mean'].sort_values().plot.barh(ax=ax, color='teal')
-        ax.set_title('Average Grade by ECA Participation')
-        ax.set_xlabel('Average Grade Score')
-        plt.tight_layout()
-        return fig
-        
-    except Exception as e:
-        print(f"ECA Impact Error: {str(e)}")
-        return None
+
 
 def check_performance(username):
     """Identify underperforming students"""

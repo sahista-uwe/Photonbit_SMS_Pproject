@@ -201,15 +201,6 @@ class DashboardWindow:
             font=("Helvetica", 12)
         ).pack(pady=5)
         
-        # Grade trends plot
-        try:
-            fig = plot_grade_trends(self.user.username)
-            if fig:
-                embed_plot(self.main_frame, fig)
-        except Exception as e:
-           
-            CTkMessagebox(title="Info", message=f" Grade trends unavailable: {str(e)}", icon="info")
-        
         # ECA section
         eca_frame = ctk.CTkFrame(self.main_frame)
         eca_frame.pack(pady=10, fill="x")
@@ -267,7 +258,7 @@ class DashboardWindow:
         except Exception as e:
             ctk.CTkLabel(
                 eca_frame,
-                text="Error loading ECA records",
+                text="Enrolled ECA",
                 font=("Helvetica", 12)
             ).pack()
 
@@ -370,7 +361,6 @@ class DashboardWindow:
             "Update Grades": self.show_update_grades,
             "Modify ECA": self.show_modify_eca,
             "ECA Insights": self.show_eca_insights,
-            "ECA & Grade Correlation": self.show_eca_impact,
             "Delete User": self.show_delete_user
         }
         
@@ -403,25 +393,14 @@ class DashboardWindow:
 
 
 
-    def show_eca_impact(self):
-        from utils import analyze_eca_impact
-
-        impact_window = ctk.CTkToplevel(self.window)
-        impact_window.title("ECA Impact Analysis")
-        impact_window.geometry("800x600") 
 
 
 
-        fig = analyze_eca_impact()
-        if fig:
-            embed_plot(impact_window, fig)
-        else:
-            CTkMessagebox(title="Info", message="Not enough data for ECA analysis", icon="info")
 
     def show_add_user(self):
         add_window = ctk.CTkToplevel(self.window)
         add_window.title("Add New User")
-        add_window.geometry("400x500")
+        add_window.geometry("400x600")
 
     
         
@@ -484,7 +463,7 @@ class DashboardWindow:
     def show_update_grades(self):
         update_window = ctk.CTkToplevel(self.window)
         update_window.title("Update Student Grades")
-        update_window.geometry("400x400")
+        update_window.geometry("400x600")
         
         # Student selection dropdown
         ctk.CTkLabel(
