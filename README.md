@@ -31,9 +31,7 @@ Student Portal for profile management and academic tracking
 
 Tech Stack
 
-Component  
-
-Tool
+Component           Tool
 
 Language	          Python 3.8+
 
