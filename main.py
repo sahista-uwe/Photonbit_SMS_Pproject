@@ -346,13 +346,7 @@ class DashboardWindow:
 
     def create_admin_dashboard(self):
         # Main container frame
-        self.main_frame = ctk.CTkScrollableFrame(self.window,
-            width=980,
-            height=700,
-            fg_color="#2b2b2b",
-            scrollbar_button_color="#3b3b3b",
-            scrollbar_button_hover_color="#4b4b4b"
-        )
+        self.main_frame = ctk.CTkFrame(self.window,fg_color="#2b2b2b")
         self.main_frame.pack(pady=10, padx=10, fill="both", expand=True)
 #widgests
         button_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
@@ -634,16 +628,34 @@ class DashboardWindow:
 
     def show_eca_insights(self):
         from utils import plot_eca_participation
+
+     # Create a new window for ECA insights
+        insights_window = ctk.CTkToplevel(self.window)
+        insights_window.title("ECA Participation Insights")
+        insights_window.geometry("800x600")
+
         fig = plot_eca_participation()
-        embed_plot(self.window, fig)
+        if fig:
+            embed_plot(insights_window, fig)
+        else:
+            CTkMessagebox(title="Error", message="Could not generate ECA insights", icon="cancel")
+
+
 
     def show_eca_impact(self):
         from utils import analyze_eca_impact
+
+        impact_window = ctk.CTkToplevel(self.window)
+        impact_window.title("ECA Impact Analysis")
+        impact_window.geometry("800x600") 
+
+
+
         fig = analyze_eca_impact()
         if fig:
-            embed_plot(self.window, fig)
+            embed_plot(impact_window, fig)
         else:
-            CTkMessagebox(title="Info", message= "Not enough data for ECA analysis",icon="check")
+            CTkMessagebox(title="Info", message="Not enough data for ECA analysis", icon="info")
 
 if __name__ == "__main__":
     from utils import initialize_data_files
