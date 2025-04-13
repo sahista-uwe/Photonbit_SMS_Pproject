@@ -1,28 +1,49 @@
 PhotoBit Student Management System
+
 Programming Language: Python 3.8+
+
 GUI Framework: CustomTkinter
+
 Data Handling: Pandas
+
 Data Visualization: Matplotlib
 
+
 Project Overview
+
 The PhotoBit Student Management System is a user-friendly, Python-based application that manages student academic records, personal information, 
+
 and extracurricular activities. It offers secure login, role-based access, and visual performance analytics.
 
+
 Features
+
 Secure User Authentication (Admin & Student roles)
+
 Admin Control Panel for managing student data
+
 Performance Visualizations using Matplotlib
+
 Longitudinal Analysis of academic performance
+
 Student Portal for profile management and academic tracking
+
 
 Tech Stack
 Component          	Tool
+
 Language	          Python 3.8+
+
 GUI Framework	      CustomTkinter
+
 Data Handling	      Pandas
+
 Visualization	      Matplotlib
+
 Message Boxes	      CTkMessagebox
+
 Data Persistence	  CSV / TXT Files
+
 
 File Structure
 
