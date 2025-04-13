@@ -1,10 +1,9 @@
-import customtkinter as ctk
-from CTkMessagebox import CTkMessagebox
-
-
+#This is main.py
 from PIL import Image
 import pandas as pd
 import os
+import customtkinter as ctk
+from CTkMessagebox import CTkMessagebox
 from auth import authenticate, get_user_role
 from admin import add_user
 from student import update_profile
@@ -138,7 +137,7 @@ class DashboardWindow:
             profile_frame,
             text="My Profile",
             font=("Helvetica", 14, "bold")
-        ).pack(pady=5)
+        ).pack(pady=1)
         
         # Get student data
         try:
@@ -146,7 +145,7 @@ class DashboardWindow:
             student = users[users['username'] == self.user.username].iloc[0]
             
             info_frame = ctk.CTkFrame(profile_frame, fg_color="transparent")
-            info_frame.pack(pady=5)
+            info_frame.pack(pady=1)
             
             ctk.CTkLabel(
                 info_frame,
@@ -172,7 +171,7 @@ class DashboardWindow:
                 text="Update Profile",
                 command=self.show_update_profile,
                 font=("Helvetica", 12)
-            ).pack(pady=5)
+            ).pack(pady=1)
             
         except Exception as e:
            
@@ -343,15 +342,28 @@ class DashboardWindow:
             button_hover_color="#4b4b4b",  # Button hover
             corner_radius=10  # Rounded corners
         )
-
+#-------------------------------------------------------------------------------------------------------------------------------------------------------
     def create_admin_dashboard(self):
         # Main container frame
         self.main_frame = ctk.CTkFrame(self.window,fg_color="#2b2b2b")
         self.main_frame.pack(pady=10, padx=10, fill="both", expand=True)
-#widgests
+
+        
+
+        
+        profile_frame = ctk.CTkFrame(self.main_frame)
+        profile_frame.pack(pady=10, padx=10, fill="x")
+        ctk.CTkLabel(
+            profile_frame,
+            text="Admin Profile",
+            font=("Helvetica", 14, "bold")
+        ).pack(pady=5)
+
+
+       
+        #widgests
         button_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         button_frame.pack(pady=15, fill="x")
-
         # Add all admin buttons to the frame
         button_options = {
             "Add User": self.show_add_user,
@@ -375,10 +387,43 @@ class DashboardWindow:
         if fig:
             embed_plot(self.main_frame, fig)
 
+    def show_eca_insights(self):
+        from utils import plot_eca_participation
+
+     # Create a new window for ECA insights
+        insights_window = ctk.CTkToplevel(self.window)
+        insights_window.title("ECA Participation Insights")
+        insights_window.geometry("800x600")
+
+        fig = plot_eca_participation()
+        if fig:
+            embed_plot(insights_window, fig)
+        else:
+            CTkMessagebox(title="Error", message="Could not generate ECA insights", icon="cancel")
+
+
+
+    def show_eca_impact(self):
+        from utils import analyze_eca_impact
+
+        impact_window = ctk.CTkToplevel(self.window)
+        impact_window.title("ECA Impact Analysis")
+        impact_window.geometry("800x600") 
+
+
+
+        fig = analyze_eca_impact()
+        if fig:
+            embed_plot(impact_window, fig)
+        else:
+            CTkMessagebox(title="Info", message="Not enough data for ECA analysis", icon="info")
+
     def show_add_user(self):
         add_window = ctk.CTkToplevel(self.window)
         add_window.title("Add New User")
         add_window.geometry("400x500")
+
+    
         
         # Form fields
         fields = [
@@ -626,36 +671,7 @@ class DashboardWindow:
             font=("Helvetica", 12)
         ).pack(pady=15)
 
-    def show_eca_insights(self):
-        from utils import plot_eca_participation
 
-     # Create a new window for ECA insights
-        insights_window = ctk.CTkToplevel(self.window)
-        insights_window.title("ECA Participation Insights")
-        insights_window.geometry("800x600")
-
-        fig = plot_eca_participation()
-        if fig:
-            embed_plot(insights_window, fig)
-        else:
-            CTkMessagebox(title="Error", message="Could not generate ECA insights", icon="cancel")
-
-
-
-    def show_eca_impact(self):
-        from utils import analyze_eca_impact
-
-        impact_window = ctk.CTkToplevel(self.window)
-        impact_window.title("ECA Impact Analysis")
-        impact_window.geometry("800x600") 
-
-
-
-        fig = analyze_eca_impact()
-        if fig:
-            embed_plot(impact_window, fig)
-        else:
-            CTkMessagebox(title="Info", message="Not enough data for ECA analysis", icon="info")
 
 if __name__ == "__main__":
     from utils import initialize_data_files
