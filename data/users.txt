@@ -1,7 +1,12 @@
 username,name,role,email,phone
 admin,Admin,admin,admin@school.com,1234567890
-chelsey,Chelsey Shrestha,student,chelsey@school.edu.np,9861533425
-swapnil,Swapnil Shrestha,student,swapnil@school.edu.np,1234567890
-sandy,Sandy Thapa,student,sandy@school.edu.np,1234567890
-sahima,Sahima Gurung,student,sahima@school.edu.np,1234567890
-luna,Luna Gurung,student,luna@school.edu.np,345678765445
+adam_green,Adam Green,student,adam@school.com,1122334455
+beth_blue,Beth Blue,student,beth@school.com,1223344556
+chris_red,Chris Red,student,chris@school.com,1334455667
+dana_yellow,Dana Yellow,student,dana@school.com,1445566778
+emma_purple,Emma Purple,student,emma@school.com,1556677889
+frank_black,Frank Black,student,frank@school.com,1667788990
+grace_white,Grace White,student,grace@school.com,1778899001
+hank_gray,Hank Gray,student,hank@school.com,1889900112
+ivy_orange,Ivy Orange,student,ivy@school.com,1990011223
+jack_pink,Jack Pink,student,jack@school.com,+1001122334

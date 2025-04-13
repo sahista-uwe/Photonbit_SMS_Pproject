@@ -1,7 +1,12 @@
 username,activity1,activity2,activity3
 admin,,,
-chelsey,Football,Basetball,Debate
-swapnil,Football,Basketball,Music
-sandy,Basketball,Drama,Music
-sahima,Music,Basketball,Debate
-luna,Robotics,Chess,Music
+adam_green,Robotics,Chess,
+beth_blue,Music,,
+chris_red,Basketball,Debate,Drama
+dana_yellow,Basketball,,
+emma_purple,Music,Debate,
+frank_black,Music,Chess,
+grace_white,Robotics,Drama,
+hank_gray,Music,,
+ivy_orange,Debate,Chess,Music
+jack_pink,Basketball,Music,Robotics
