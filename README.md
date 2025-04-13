@@ -27,22 +27,39 @@ Data Persistence	  CSV / TXT Files
 File Structure
 
 PhotoBit_Student_System/
+
 ├── main.py             # App entry point
+
 ├── auth.py             # Authentication logic
+
 ├── admin.py            # Admin dashboard logic
+
 ├── student.py          # Student portal features
+
 ├── models.py           # Object classes (User, Admin, Student)
+
 ├── utils.py            # Helper functions and data init
+
 ├── README.md           # Project documentation
+
 ├── screenshots/        # Interface screenshots (to be added)
+
 │
+
 ├── data/
+
 │   ├── users.txt       # User profiles
+
 │   ├── passwords.txt   # Credentials (plaintext for demo only)
+
 │   ├── grades.txt      # Student grades
+
 │   ├── eca.txt         # Extracurricular activity records
+
 │
+
 └── grade_history/      # Historical grade performance data
+
 
 Authentication System
 Username/password login system
