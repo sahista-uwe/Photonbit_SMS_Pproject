@@ -1,139 +1,125 @@
-PhotoBit Student Management System
+# PhotoBit Student Management System
 
-Programming Language: Python 3.8+
+**Programming Language:** Python 3.8+  
+**GUI Framework:** CustomTkinter  
+**Data Handling:** Pandas  
+**Data Visualization:** Matplotlib  
 
-GUI Framework: CustomTkinter
+## Project Overview
 
-Data Handling: Pandas
+PhotoBit is a user-friendly, Python-based student management system designed to manage academic records, personal details, and extracurricular activities. It provides secure login, role-based access, and performance visualizations to enhance user experience and decision-making.
 
-Data Visualization: Matplotlib
+## Features
 
+- Secure User Authentication (Admin & Student roles)  
+- Admin Control Panel for managing student data  
+- Performance Visualizations with Matplotlib  
+- Longitudinal Analysis of academic trends  
+- Student Portal for academic tracking and profile management  
 
-Project Overview
+## Tech Stack
 
-The PhotoBit Student Management System is a user-friendly, Python-based application that manages student academic records, personal information, 
+| Component          | Tool             |
+|--------------------|------------------|
+| Language           | Python 3.8+       |
+| GUI Framework      | CustomTkinter     |
+| Data Handling      | Pandas            |
+| Visualization      | Matplotlib        |
+| Message Boxes      | CTkMessagebox     |
+| Data Persistence   | CSV / TXT Files   |
 
-and extracurricular activities. It offers secure login, role-based access, and visual performance analytics.
+## File Structure
 
-
-Features
-
-Secure User Authentication (Admin & Student roles)
-
-Admin Control Panel for managing student data
-
-Performance Visualizations using Matplotlib
-
-Longitudinal Analysis of academic performance
-
-Student Portal for profile management and academic tracking
-
-
-Tech Stack
-
-Component           Tool
-
-Language	          Python 3.8+
-
-GUI Framework	      CustomTkinter
-
-Data Handling	      Pandas
-
-Visualization	      Matplotlib
-
-Message Boxes	      CTkMessagebox
-
-Data Persistence	  CSV / TXT Files
-
-
-File Structure
-
+```
 PhotoBit_Student_System/
-
 ├── main.py             # App entry point
-
 ├── auth.py             # Authentication logic
-
 ├── admin.py            # Admin dashboard logic
-
 ├── student.py          # Student portal features
-
 ├── models.py           # Object classes (User, Admin, Student)
-
 ├── utils.py            # Helper functions and data init
-
 ├── README.md           # Project documentation
-
 ├── screenshots/        # Interface screenshots (to be added)
-
 │
-
 ├── data/
-
 │   ├── users.txt       # User profiles
-
 │   ├── passwords.txt   # Credentials (plaintext for demo only)
-
 │   ├── grades.txt      # Student grades
-
 │   ├── eca.txt         # Extracurricular activity records
-
 │
-
 └── grade_history/      # Historical grade performance data
+```
 
+## Authentication System
 
-Authentication System
-Username/password login system
-Role-based access: Admin vs Student
-Error handling for invalid credentials
+- Username/password login system  
+- Role-based access (Admin / Student)  
+- Error handling for invalid credentials  
 
-Note:
-Passwords are stored in plain text (passwords.txt) for educational purposes. In a production environment, you should implement password hashing (e.g., using bcrypt) and secure database storage.
+Note: Passwords are stored in plain text (`passwords.txt`) for demonstration purposes. For production, implement password hashing (e.g., with `bcrypt`) and use a secure database.
 
-Administrator Dashboard
-Create, edit, delete user accounts
-View and manage student academic records
-Record and update extracurricular activity participation
-Generate analytical reports:
-   Subject-wise performance
-   Grade trends
-   Activity-to-performance correlation
+## Administrator Dashboard
 
-Student Dashboard
-View personal and academic information
-Access subject-wise performance and historical grades
-Monitor class ranking and trends
-Update personal contact details
-Data Visualization Examples
-(Screenshots will be added later)
+- Create, edit, and delete user accounts  
+- Manage academic records and extracurricular activities  
+- Generate reports:
+  - Subject-wise performance
+  - Grade trends
+  - Activity-to-performance correlation  
 
-admin_dashboard.png
+## Student Dashboard
 
-student_performance.png
+- View personal and academic information  
+- Access subject-wise performance and historical grades  
+- Track class ranking and trends  
+- Update personal contact details  
 
-eca_analysis.png
+## Data Visualization (Coming Soon)
 
-Installation and Setup
-Prerequisites
-Python 3.8 or higher
+- admin_dashboard.png  
+- student_performance.png  
+- eca_analysis.png  
 
-Install required packages:
+## Installation & Setup
+
+### Prerequisites
+
+- Python 3.8 or higher
+
+### Install Required Packages
+
+```bash
 pip install customtkinter pandas matplotlib CTkMessagebox
-Run the System
+```
 
+### Run the System
+
+```bash
 python main.py
-To initialize the data files (if not already created):
+```
 
+To initialize data files (if not already created):
 
+```bash
 python utils.py
-Default Login Credentials
-Role	Username	Password
-Admin	admin	admin123
+```
 
-License
+## Default Login Credentials
+
+| Role    | Username | Password  |
+|---------|----------|-----------|
+| Admin   | admin    | admin123  |
+
+## License
+
 This project is licensed under the MIT License.
 
-Developer Info
-Author: Sahista Gurung, Chelsey, Shrestha, Swapnil Shrestha
-Email: sahistagurung@gmail.com
+## Developer Info
+
+**Authors:**  
+- Sahista Gurung  
+- Chelsey Shrestha  
+- Swapnil Shrestha  
+
+Contact: sahistagurung@gmail.com
+
