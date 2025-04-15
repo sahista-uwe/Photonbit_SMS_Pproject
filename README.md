@@ -46,8 +46,7 @@ PhotoBit_Student_System/
 │   ├── passwords.txt   # Credentials (plaintext for demo only)
 │   ├── grades.txt      # Student grades
 │   ├── eca.txt         # Extracurricular activity records
-│
-└── grade_history/      # Historical grade performance data
+
 ```
 
 ## Authentication System
