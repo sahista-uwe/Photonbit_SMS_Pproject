@@ -26,7 +26,7 @@ PhotoBit is a user-friendly, Python-based student management system designed to 
 | Data Handling      | Pandas            |
 | Visualization      | Matplotlib        |
 | Message Boxes      | CTkMessagebox     |
-| Data Persistence   | CSV / TXT Files   |
+| Data Persistence   | TXT Files   |
 
 ## File Structure
 
