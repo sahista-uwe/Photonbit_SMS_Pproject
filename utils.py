@@ -37,7 +37,7 @@ def initialize_data_files():
         eca = pd.concat([eca, new_entries], ignore_index=True)
         eca.to_csv('data/eca.txt', index=False)
      
-
+#Record Student Info
 def record_grade_update(username, grades):
     """Record grade changes in history file"""
     history_file = f'data/grade_history/{username}.csv'
