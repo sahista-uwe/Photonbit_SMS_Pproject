@@ -7,7 +7,7 @@ from CTkMessagebox import CTkMessagebox
 from auth import authenticate, get_user_role
 from admin import add_user
 from student import update_profile
-from utils import plot_subject_averages, embed_plot, initialize_data_files, plot_grade_trends
+from utils import plot_subject_averages, embed_plot, initialize_data_files
 from models import Admin, Student
 
 # Setting the appearance to dark
